@@ -27,6 +27,7 @@ import {
   orderBy,
 } from "firebase/firestore";
 import { auth, db } from "./firebase";
+import logoImg from "./logo.jpg";
 
 // ==========================================
 // ส่วนประกอบ UI เสริม
@@ -97,8 +98,8 @@ const Login = () => {
 
   return (
     <div className="auth-wrapper">
-      {/* ฝั่งซ้าย: แบนเนอร์วิทยาลัย */}
       <div className="auth-banner">
+        <img src={logoImg} alt="โลโก้วิทยาลัย" style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "50%", marginBottom: "20px", boxShadow: "0 4px 15px rgba(0,0,0,0.2)", border: "3px solid rgba(255,255,255,0.3)" }} />
         <h1
           style={{
             margin: 0,
@@ -121,11 +122,10 @@ const Login = () => {
             lineHeight: "1.6",
           }}
         >
-          "ระบบจัดการและติดตามสถานะการแจ้งซ่อมคอมพิวเตอร์"
+          "ระบบจัดการและติดตามสถานะการแจ้งซ่อมคอมพิวเตอร์และอุปกรณ์ไอที สำหรับบุคลากรและนักศึกษา"
         </div>
       </div>
 
-      {/* ฝั่งขวา: ฟอร์มล็อกอิน */}
       <div className="auth-form-side">
         <div style={{ marginBottom: "30px" }}>
           <h2
@@ -223,6 +223,7 @@ const Register = () => {
           background: "linear-gradient(135deg, #0f766e 0%, #059669 100%)",
         }}
       >
+        <img src={logoImg} alt="โลโก้วิทยาลัย" style={{ width: "80px", height: "80px", objectFit: "cover", borderRadius: "50%", marginBottom: "15px", border: "2px solid rgba(255,255,255,0.3)" }} />
         <h1 style={{ margin: 0, fontSize: "32px" }}>📝 สร้างบัญชีใหม่</h1>
         <p style={{ fontSize: "18px", opacity: 0.9, marginTop: "10px" }}>
           ระบบแจ้งซ่อม วิทยาลัยเทคนิคนนทบุรี
@@ -452,15 +453,6 @@ const TicketList = () => {
 const AdminManage = ({ userRole }) => {
   const [tickets, setTickets] = useState([]);
 
-  if (userRole !== "admin") {
-    return (
-      <div className="card" style={{ textAlign: "center", padding: "50px" }}>
-        <h2 style={{ color: "red" }}>🚫 ไม่อนุญาตให้เข้าถึง</h2>
-        <p>คุณไม่มีสิทธิ์เข้าใช้งานหน้านี้ (เฉพาะเจ้าหน้าที่เท่านั้น)</p>
-      </div>
-    );
-  }
-
   const fetchTickets = async () => {
     const q = query(
       collection(db, "repair_tickets"),
@@ -470,10 +462,20 @@ const AdminManage = ({ userRole }) => {
     setTickets(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
   };
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
-    fetchTickets();
-  }, []);
+    if (userRole === "admin") {
+      fetchTickets();
+    }
+  }, [userRole]);
+
+  if (userRole !== "admin") {
+    return (
+      <div className="card" style={{ textAlign: "center", padding: "50px" }}>
+        <h2 style={{ color: "red" }}>🚫 ไม่อนุญาตให้เข้าถึง</h2>
+        <p>คุณไม่มีสิทธิ์เข้าใช้งานหน้านี้ (เฉพาะเจ้าหน้าที่เท่านั้น)</p>
+      </div>
+    );
+  }
 
   const handleUpdateStatus = async (id, newStatus) => {
     await updateDoc(doc(db, "repair_tickets", id), { status: newStatus });
@@ -605,7 +607,6 @@ const AppLayout = ({ userRole }) => {
   const isAuthPage =
     location.pathname === "/" || location.pathname === "/register";
 
-  // ถ้าเป็นหน้า Login/Register ให้แสดงแค่พื้นหลังสีเทา 100vh
   if (isAuthPage) {
     return (
       <div className="auth-bg">
@@ -617,10 +618,10 @@ const AppLayout = ({ userRole }) => {
     );
   }
 
-  // ถ้าเป็นหน้าอื่นๆ ภายในแอป ให้แสดง Header และ Menu
   return (
     <div className="main-container">
       <div className="app-title">
+        <img src={logoImg} alt="โลโก้วิทยาลัย" style={{ width: "70px", height: "70px", objectFit: "cover", borderRadius: "50%", marginBottom: "15px", boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }} />
         <h1>💻 ระบบแจ้งซ่อมคอมพิวเตอร์</h1>
         <p>วิทยาลัยเทคนิคนนทบุรี</p>
       </div>
