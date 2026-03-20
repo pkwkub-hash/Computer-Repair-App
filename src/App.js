@@ -27,7 +27,6 @@ import {
   orderBy,
 } from "firebase/firestore";
 import { auth, db } from "./firebase";
-import logoImg from "./logo.jpg";
 
 // ==========================================
 // ส่วนประกอบ UI เสริม
@@ -99,7 +98,8 @@ const Login = () => {
   return (
     <div className="auth-wrapper">
       <div className="auth-banner">
-        <img src={logoImg} alt="โลโก้วิทยาลัย" style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "50%", marginBottom: "20px", boxShadow: "0 4px 15px rgba(0,0,0,0.2)", border: "3px solid rgba(255,255,255,0.3)" }} />
+        {/* เปลี่ยนรูปโลโก้เป็นไอคอนแทน */}
+        <div style={{ fontSize: "70px", marginBottom: "15px" }}>💻</div>
         <h1
           style={{
             margin: 0,
@@ -223,8 +223,9 @@ const Register = () => {
           background: "linear-gradient(135deg, #0f766e 0%, #059669 100%)",
         }}
       >
-        <img src={logoImg} alt="โลโก้วิทยาลัย" style={{ width: "80px", height: "80px", objectFit: "cover", borderRadius: "50%", marginBottom: "15px", border: "2px solid rgba(255,255,255,0.3)" }} />
-        <h1 style={{ margin: 0, fontSize: "32px" }}>📝 สร้างบัญชีใหม่</h1>
+        {/* เปลี่ยนรูปโลโก้เป็นไอคอนแทน */}
+        <div style={{ fontSize: "60px", marginBottom: "15px" }}>📝</div>
+        <h1 style={{ margin: 0, fontSize: "32px" }}>สร้างบัญชีใหม่</h1>
         <p style={{ fontSize: "18px", opacity: 0.9, marginTop: "10px" }}>
           ระบบแจ้งซ่อม วิทยาลัยเทคนิคนนทบุรี
         </p>
@@ -621,8 +622,9 @@ const AppLayout = ({ userRole }) => {
   return (
     <div className="main-container">
       <div className="app-title">
-        <img src={logoImg} alt="โลโก้วิทยาลัย" style={{ width: "70px", height: "70px", objectFit: "cover", borderRadius: "50%", marginBottom: "15px", boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }} />
-        <h1>💻 ระบบแจ้งซ่อมคอมพิวเตอร์</h1>
+        {/* เปลี่ยนรูปโลโก้เป็นไอคอนแทน */}
+        <div style={{ fontSize: "50px", marginBottom: "5px" }}>💻</div>
+        <h1>ระบบแจ้งซ่อมคอมพิวเตอร์</h1>
         <p>วิทยาลัยเทคนิคนนทบุรี</p>
       </div>
       <Navigation userRole={userRole} />
@@ -667,7 +669,7 @@ export default function App() {
         
         /* New Auth Card Split Screen */
         .auth-wrapper { display: flex; flex-direction: row; width: 100%; max-width: 850px; background: white; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); overflow: hidden; }
-        .auth-banner { flex: 1.2; background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); color: white; padding: 50px; display: flex; flex-direction: column; justify-content: center; }
+        .auth-banner { flex: 1.2; background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); color: white; padding: 50px; display: flex; flex-direction: column; justify-content: center; text-align: center; align-items: center; }
         .auth-form-side { flex: 1; padding: 50px 40px; display: flex; flex-direction: column; justify-content: center; background: #ffffff; }
         
         .input-group { display: flex; align-items: center; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; overflow: hidden; transition: 0.3s; }
